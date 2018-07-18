@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:animationCache="true"
-    android:background="#ff0059"
+    android:background="@drawable/gradient1"
     tools:animateLayoutChanges="true"
     tools:animationCache="true"
     tools:context=".loginactivity">
@@ -118,7 +118,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:background="#fcfcfc"
+        android:background="@drawable/gradient2"
         android:elevation="8dp"
         android:fontFamily="monospace"
         android:text="@string/sign_in_using_mobile_number"

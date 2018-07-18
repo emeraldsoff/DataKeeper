@@ -4,5 +4,8 @@
     <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
         <!-- Customize your theme here. -->
     </style>
+    <style name="fullscreen" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
+
+    </style>
 
 </resources>

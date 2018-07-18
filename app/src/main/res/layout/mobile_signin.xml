@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff0059"
+    android:background="@drawable/gradient1"
     tools:context=".mobile_signin">
-    #ff0059
     <!--android:background="#fff200"-->
     <EditText
         android:id="@+id/mob_no"
@@ -16,7 +15,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/text_box_state"
         android:elevation="8dp"
         android:ems="10"
         android:hint="@string/country_code_your_mobile_number"
@@ -54,6 +53,7 @@
         android:layout_marginStart="8dp"
         android:elevation="8dp"
         android:padding="0dp"
+        android:background="@drawable/text_box_state"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
         android:text="@string/ok"
@@ -156,7 +156,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/text_box_state"
         android:elevation="8dp"
         android:ems="10"
         android:hint="@string/enter_code"
@@ -179,6 +179,7 @@
         android:elevation="8dp"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
+        android:background="@drawable/text_box_state"
         android:text="@string/submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -197,6 +198,7 @@
         android:padding="10dp"
         android:text="sign out"
         android:textSize="15dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

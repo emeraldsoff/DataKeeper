@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -12,6 +14,9 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends Activity {
     FirebaseAuth.AuthStateListener mAuthlistener;
     FirebaseAuth mAuth;
+
+    private Button btn1, btn2, btn3, btn4, btn5;
+    private TextView title;
 
     @Override
     protected void onStart() {
