@@ -1,4 +1,4 @@
-package inc.frontlooksoftwares.datakeeper;
+package inc.frontlooksoftwares.datakeeper.free;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,6 +22,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import inc.frontlooksoftwares.datakeeper.R;
 
 public class loginactivity extends Activity {
 

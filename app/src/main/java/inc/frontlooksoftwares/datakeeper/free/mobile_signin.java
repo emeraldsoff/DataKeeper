@@ -1,4 +1,4 @@
-package inc.frontlooksoftwares.datakeeper;
+package inc.frontlooksoftwares.datakeeper.free;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -35,6 +35,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
+
+import inc.frontlooksoftwares.datakeeper.R;
 
 public class mobile_signin extends Activity implements
         View.OnClickListener {

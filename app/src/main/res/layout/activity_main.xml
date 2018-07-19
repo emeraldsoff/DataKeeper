@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient1"
-    tools:context=".MainActivity">
+    tools:context=".pro.MainActivity">
 
 
     <TextView
@@ -102,7 +102,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setting" />
-
 
 
 </android.support.constraint.ConstraintLayout>

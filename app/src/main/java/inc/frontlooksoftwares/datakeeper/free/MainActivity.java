@@ -1,4 +1,4 @@
-package inc.frontlooksoftwares.datakeeper;
+package inc.frontlooksoftwares.datakeeper.free;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,8 +12,9 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends Activity implements
-        View.OnClickListener {
+import inc.frontlooksoftwares.datakeeper.R;
+
+public class MainActivity extends Activity implements View.OnClickListener {
     FirebaseAuth.AuthStateListener mAuthlistener;
     FirebaseAuth mAuth;
 
@@ -66,8 +67,8 @@ public class MainActivity extends Activity implements
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.add_cust:
 
                 break;
