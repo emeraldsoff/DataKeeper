@@ -1,4 +1,4 @@
-package inc.frontlooksoftwares.datakeeper.free;
+package inc.frontlooksoftwares.datakeeper;
 
 import android.app.Activity;
 import android.os.Bundle;

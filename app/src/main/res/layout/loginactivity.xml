@@ -9,7 +9,7 @@
     android:background="@drawable/gradient1"
     tools:animateLayoutChanges="true"
     tools:animationCache="true"
-    tools:context=".pro.loginactivity">
+    tools:context=".loginactivity">
 
     <TextView
         android:id="@+id/textView"
