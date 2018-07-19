@@ -3,6 +3,7 @@ package inc.frontlooksoftwares.datakeeper;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -27,6 +28,11 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 
@@ -48,9 +54,9 @@ public class mobile_signin extends Activity implements
     // [START declare_auth]
     private FirebaseAuth mAuth;
     // [END declare_auth]
-//    private FirebaseDatabase mFirebaseDatabase;
+    private FirebaseDatabase mFirebaseDatabase;
     private FirebaseAuth.AuthStateListener mAuthListener;
-//    private DatabaseReference myRef;
+    private DatabaseReference myRef;
 
     private ViewGroup mPhoneNumberViews;
     private ViewGroup mSignedInViews;
@@ -165,7 +171,6 @@ public class mobile_signin extends Activity implements
                 // now need to ask the user to enter the code and then construct a credential
                 // by combining the code with a verification ID.
                 Log.d(TAG, "onCodeSent:" + verificationId);
-
                 // Save verification ID and resending token so we can use them later
                 mVerificationId = verificationId;
                 mResendToken = token;
@@ -234,6 +239,7 @@ public class mobile_signin extends Activity implements
 
         mVerificationInProgress = true;
     }
+    public String uid;
 
     private void verifyPhoneNumberWithCode(String verificationId, String code) {
         // [START verify_with_code]
@@ -252,6 +258,7 @@ public class mobile_signin extends Activity implements
                 this,               // Activity (for callback binding)
                 mCallbacks,         // OnVerificationStateChangedCallbacks
                 token);             // ForceResendingToken from callbacks
+//        code_sent.setText("Code Requested");
         CountDownTimer timer = new CountDownTimer(60000, 1000) {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
@@ -286,52 +293,53 @@ public class mobile_signin extends Activity implements
 
 
                             final String userID = user.getUid();
+                            uid= userID;
 
-//                            myRef.child("users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-//                                @Override
-//                                public void onDataChange(DataSnapshot snapshot) {
-//                                    if (snapshot.getValue() != null) {
-//
-//                                        Intent y = new Intent(mobile_signin.this, MainActivity.class);
-//                                        y.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                        y.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                        startActivity(y);
-//
-//                                        SharedPreferences mPreferences;
-//
-//                                        mPreferences = getSharedPreferences("User", MODE_PRIVATE);
-//                                        SharedPreferences.Editor editor = mPreferences.edit();
-//                                        editor.putString("saveuserid", userID);
-//                                        editor.commit();
-//
-//                                        //user exists, do something
-//                                    } else {
-//
-//                                        SharedPreferences mPreferences;
-//
-//                                        mPreferences = getSharedPreferences("User", MODE_PRIVATE);
-//                                        SharedPreferences.Editor editor = mPreferences.edit();
-//                                        editor.putString("saveuserid", userID);
-//                                        editor.commit();
-//
-//                                        String contactno = mPhoneNumberField.getText().toString();
-//                                        //user does not exist, do something else
-//                                        myRef.child("users").child(userID).setValue("true");
-//                                        //    myRef.child("users").child(userID).child("Name").setValue("true");
-//                                        myRef.child("users").child(userID).child("contact").setValue(contactno);
-//
-//
-//                                        Intent y = new Intent(mobile_signin.this, MainActivity.class);
-//                                        y.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                        y.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                        startActivity(y);
-//
-//                                    }
-//                                }
-//
-//                                public void onCancelled(DatabaseError arg0) {
-//                                }
-//                            });
+                            myRef.child("users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot snapshot) {
+                                    if (snapshot.getValue() != null) {
+
+                                        Intent y = new Intent(mobile_signin.this, MainActivity.class);
+                                        y.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        y.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(y);
+
+                                        SharedPreferences mPreferences;
+
+                                        mPreferences = getSharedPreferences("User", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = mPreferences.edit();
+                                        editor.putString("saveuserid", userID);
+                                        editor.commit();
+
+                                        //user exists, do something
+                                    } else {
+
+                                        SharedPreferences mPreferences;
+
+                                        mPreferences = getSharedPreferences("User", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = mPreferences.edit();
+                                        editor.putString("saveuserid", userID);
+                                        editor.commit();
+
+                                        String contactno = mPhoneNumberField.getText().toString();
+                                        //user does not exist, do something else
+                                        myRef.child("users").child(userID).setValue("true");
+                                        //    myRef.child("users").child(userID).child("Name").setValue("true");
+                                        myRef.child("users").child(userID).child("contact").setValue(contactno);
+
+
+                                        Intent y = new Intent(mobile_signin.this, MainActivity.class);
+                                        y.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        y.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(y);
+
+                                    }
+                                }
+
+                                public void onCancelled(DatabaseError arg0) {
+                                }
+                            });
 
 
                             //  myRef.child(userID).child("title").setValue("true");
@@ -397,7 +405,7 @@ public class mobile_signin extends Activity implements
                 // Code sent state, show the verification field, the
                 enableViews(mVerifyButton, mResendButton, mPhoneNumberField, mVerificationField, code_sent);
                 disableViews(mStartButton, instruction);
-                code_sent.setText("Code Sent");
+                code_sent.setText("Code Requested");
                 //  mDetailText.setText(R.string.status_code_sent);
                 Toast.makeText(mobile_signin.this, "code sent", Toast.LENGTH_LONG).show();
                 break;
@@ -406,7 +414,10 @@ public class mobile_signin extends Activity implements
                 enableViews(mStartButton, instruction, mVerifyButton, mResendButton, mPhoneNumberField, mVerificationField);
                 disableViews(code_sent);
                 //  mDetailText.setText(R.string.status_verification_failed);
-                Toast.makeText(mobile_signin.this, "verification failed", Toast.LENGTH_LONG).show();
+                mStartButton.setVisibility(View.VISIBLE);
+                mPhoneNumberField.setVisibility(View.VISIBLE);
+                instruction.setVisibility(View.VISIBLE);
+                Toast.makeText(mobile_signin.this, "verification failed, check if phone number is correct", Toast.LENGTH_LONG).show();
                 break;
             case STATE_VERIFY_SUCCESS:
                 // Verification has succeeded, proceed to firebase sign in
@@ -495,7 +506,7 @@ public class mobile_signin extends Activity implements
                     return;
                 }
 
-                mStartButton.setBackgroundColor(pink);
+//                mStartButton.setBackgroundColor(pink);
 
                 startPhoneNumberVerification(mPhoneNumberField.getText().toString());
 
@@ -504,6 +515,7 @@ public class mobile_signin extends Activity implements
                 mVerifyButton.setVisibility(View.VISIBLE);
                 mStartButton.setVisibility(View.INVISIBLE);
                 mPhoneNumberField.setVisibility(View.INVISIBLE);
+                instruction.setVisibility(View.INVISIBLE);
 
 
                 break;
@@ -517,6 +529,7 @@ public class mobile_signin extends Activity implements
                 verifyPhoneNumberWithCode(mVerificationId, code);
                 break;
             case R.id.coderesend:
+                code_sent.setText("Requesting Code");
                 resendVerificationCode(mPhoneNumberField.getText().toString(), mResendToken);
                 break;
             case R.id.sign_out_button:
