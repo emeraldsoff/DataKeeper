@@ -3,9 +3,16 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
         <!-- Customize your theme here. -->
-    </style>
-    <style name="fullscreen" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
 
+    </style>
+
+    <style name="fullscreen1" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
+        <item name="uitheme">
+            <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+                <corners android:radius="10dp" />
+                <gradient android:angle="-180" android:centerColor="#3ddfff" android:endColor="#5affd6" android:startColor="#59b2ff" />
+            </shape>
+        </item>
     </style>
 
 </resources>
