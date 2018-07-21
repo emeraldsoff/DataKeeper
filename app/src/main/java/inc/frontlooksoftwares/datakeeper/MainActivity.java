@@ -12,12 +12,10 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
 public class MainActivity extends Activity implements View.OnClickListener {
     FirebaseAuth.AuthStateListener mAuthlistener;
     FirebaseAuth mAuth;
-
-    private Button custadd, custupdate, custshow, settings, about;
-    private TextView title;
 
     @Override
     protected void onStart() {
@@ -47,6 +45,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }, SPLASH_DISPLAY_LENGTH);
     }
 
+    private Button custadd, custupdate, custshow, settings, about;
+    private TextView title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,19 +69,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_cust:
-
+                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
                 break;
             case R.id.update_cust:
-
+                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
                 break;
             case R.id.show_cust:
-
+                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
                 break;
             case R.id.setting:
-
+                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
                 break;
             case R.id.aboutus:
-
+                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
                 break;
 
         }

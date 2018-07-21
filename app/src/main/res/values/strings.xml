@@ -22,6 +22,7 @@
     <string name="enter_your_phone_number_to_sign_in">Enter Your Phone Number To Sign In</string>
     <string name="select_country_code">Select Country Code</string>
     <string name="enter_country_code">Enter Country Code</string>
+    <string name="add_new_client">Add New Client</string>
 
 
 </resources>
