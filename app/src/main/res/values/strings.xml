@@ -23,6 +23,8 @@
     <string name="select_country_code">Select Country Code</string>
     <string name="enter_country_code">Enter Country Code</string>
     <string name="add_new_client">Add New Client</string>
+    <string name="secondary_mobile_number">Secondary Mobile Number</string>
+    <string name="mobile_number">Mobile Number</string>
 
 
 </resources>

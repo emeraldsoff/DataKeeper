@@ -3,7 +3,6 @@ package inc.frontlooksoftwares.datakeeper;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -28,11 +27,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 
@@ -74,7 +70,7 @@ public class mobile_signin extends Activity implements
     private EditText mPhoneNumberField;
     private EditText mVerificationField;
 
-    private TextView show_time, code_sent, instruction;
+    private TextView show_time, code_sent, instruction, instruction2;
 //    private CountDownTimer timer;
 
 
@@ -98,6 +94,7 @@ public class mobile_signin extends Activity implements
         mVerifyButton = findViewById(R.id.submitcode);
         mResendButton = findViewById(R.id.coderesend);
         instruction = findViewById(R.id.instruction);
+        instruction2 = findViewById(R.id.instruction2);
 
         mSignOutButton = findViewById(R.id.sign_out_button);
 
@@ -227,7 +224,7 @@ public class mobile_signin extends Activity implements
             public void onTick(long millisUntilFinished) {
                 show_time.setText("seconds remaining: " + millisUntilFinished / 1000);
                 //here you can have your logic to set text to edittext
-//                mResendButton.setVisibility(View.INVISIBLE);
+//                mResendButton.setVisibility(View.GONE);
             }
 
             @SuppressLint("SetTextI18n")
@@ -264,7 +261,7 @@ public class mobile_signin extends Activity implements
             public void onTick(long millisUntilFinished) {
                 show_time.setText("seconds remaining: " + millisUntilFinished / 1000);
                 //here you can have your logic to set text to edittext
-//                mResendButton.setVisibility(View.INVISIBLE);
+//                mResendButton.setVisibility(View.GONE);
             }
 
             @SuppressLint("SetTextI18n")
@@ -295,73 +292,73 @@ public class mobile_signin extends Activity implements
                             final String userID = user.getUid();
                             uid= userID;
 
-                            myRef.child("users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot snapshot) {
-                                    if (snapshot.getValue() != null) {
-
-                                        Intent y = new Intent(mobile_signin.this, MainActivity.class);
-                                        y.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        y.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(y);
-
-                                        SharedPreferences mPreferences;
-
-                                        mPreferences = getSharedPreferences("User", MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = mPreferences.edit();
-                                        editor.putString("saveuserid", userID);
-                                        editor.commit();
-
-                                        //user exists, do something
-                                    } else {
-
-                                        SharedPreferences mPreferences;
-
-                                        mPreferences = getSharedPreferences("User", MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = mPreferences.edit();
-                                        editor.putString("saveuserid", userID);
-                                        editor.commit();
-
-                                        String contactno = mPhoneNumberField.getText().toString();
-                                        //user does not exist, do something else
-                                        myRef.child("users").child(userID).setValue("true");
-                                        //    myRef.child("users").child(userID).child("Name").setValue("true");
-                                        myRef.child("users").child(userID).child("contact").setValue(contactno);
-
-
-                                        Intent y = new Intent(mobile_signin.this, MainActivity.class);
-                                        y.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        y.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(y);
-
-                                    }
-                                }
-
-                                public void onCancelled(DatabaseError arg0) {
-                                }
-                            });
-
-
-                            //  myRef.child(userID).child("title").setValue("true");
-                            //    myRef.child(userID).child("description").setValue("true");
-                            // myRef.child(userID).child("imageurl").setValue("true");
-                            //  myRef.child(userID).child("url").setValue("true");
-                            // [START_EXCLUDE]
-                            updateUI(STATE_SIGNIN_SUCCESS, user);
-                            // [END_EXCLUDE]
-                        } else {
-                            // Sign in failed, display a message and update the UI
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-                                // [START_EXCLUDE silent]
-                                mVerificationField.setError("Invalid code.");
-                                // [END_EXCLUDE]
-                            }
-                            // [START_EXCLUDE silent]
-                            // Update UI
-                            updateUI(STATE_SIGNIN_FAILED);
-                            // [END_EXCLUDE]
+//                            myRef.child("users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(DataSnapshot snapshot) {
+//                                    if (snapshot.getValue() != null) {
+//
+//                                        Intent y = new Intent(mobile_signin.this, MainActivity.class);
+//                                        y.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                        y.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                        startActivity(y);
+//
+//                                        SharedPreferences mPreferences;
+//
+//                                        mPreferences = getSharedPreferences("User", MODE_PRIVATE);
+//                                        SharedPreferences.Editor editor = mPreferences.edit();
+//                                        editor.putString("saveuserid", userID);
+//                                        editor.commit();
+//
+//                                        //user exists, do something
+//                                    } else {
+//
+//                                        SharedPreferences mPreferences;
+//
+//                                        mPreferences = getSharedPreferences("User", MODE_PRIVATE);
+//                                        SharedPreferences.Editor editor = mPreferences.edit();
+//                                        editor.putString("saveuserid", userID);
+//                                        editor.commit();
+//
+//                                        String contactno = mPhoneNumberField.getText().toString();
+//                                        //user does not exist, do something else
+//                                        myRef.child("users").child(userID).setValue("true");
+//                                        //    myRef.child("users").child(userID).child("Name").setValue("true");
+//                                        myRef.child("users").child(userID).child("contact").setValue(contactno);
+//
+//
+//                                        Intent y = new Intent(mobile_signin.this, MainActivity.class);
+//                                        y.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                        y.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                        startActivity(y);
+//
+//                                    }
+//                                }
+//
+//                                public void onCancelled(DatabaseError arg0) {
+//                                }
+//                            });
+//
+//
+//                            //  myRef.child(userID).child("title").setValue("true");
+//                            //    myRef.child(userID).child("description").setValue("true");
+//                            // myRef.child(userID).child("imageurl").setValue("true");
+//                            //  myRef.child(userID).child("url").setValue("true");
+//                            // [START_EXCLUDE]
+//                            updateUI(STATE_SIGNIN_SUCCESS, user);
+//                            // [END_EXCLUDE]
+//                        } else {
+//                            // Sign in failed, display a message and update the UI
+//                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+//                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+//                                // The verification code entered was invalid
+//                                // [START_EXCLUDE silent]
+//                                mVerificationField.setError("Invalid code.");
+//                                // [END_EXCLUDE]
+//                            }
+//                            // [START_EXCLUDE silent]
+//                            // Update UI
+//                            updateUI(STATE_SIGNIN_FAILED);
+//                            // [END_EXCLUDE]
                         }
                     }
                 });
@@ -417,6 +414,7 @@ public class mobile_signin extends Activity implements
                 mStartButton.setVisibility(View.VISIBLE);
                 mPhoneNumberField.setVisibility(View.VISIBLE);
                 instruction.setVisibility(View.VISIBLE);
+                instruction2.setVisibility(View.VISIBLE);
                 Toast.makeText(mobile_signin.this, "verification failed, check if phone number is correct", Toast.LENGTH_LONG).show();
                 break;
             case STATE_VERIFY_SUCCESS:
@@ -513,9 +511,10 @@ public class mobile_signin extends Activity implements
                 mResendButton.setVisibility(View.VISIBLE);
                 mVerificationField.setVisibility(View.VISIBLE);
                 mVerifyButton.setVisibility(View.VISIBLE);
-                mStartButton.setVisibility(View.INVISIBLE);
-                mPhoneNumberField.setVisibility(View.INVISIBLE);
-                instruction.setVisibility(View.INVISIBLE);
+                mStartButton.setVisibility(View.GONE);
+                mPhoneNumberField.setVisibility(View.GONE);
+                instruction.setVisibility(View.GONE);
+                instruction2.setVisibility(View.GONE);
 
 
                 break;

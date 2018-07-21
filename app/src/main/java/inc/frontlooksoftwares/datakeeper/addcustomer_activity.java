@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,9 +44,31 @@ public class addcustomer_activity extends Activity {
         }, SPLASH_DISPLAY_LENGTH);
     }
 
+    private ConstraintLayout add_cust;
+    private Button save;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addcustomer_activity);
+        save = findViewById(R.id.save_data);
+        add_cust = findViewById(R.id.add_cust);
+
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int i = 0;
+                int j = 0;
+                if (j == 1) {
+                    add_cust.setBackground(getDrawable(R.drawable.ui_theme2));
+                    i = i + 1;
+                } else if (i == 1) {
+                    j = j + 1;
+                    i = 0;
+                    add_cust.setBackground(getDrawable(R.drawable.ui_theme));
+                }
+            }
+        });
+
     }
 }

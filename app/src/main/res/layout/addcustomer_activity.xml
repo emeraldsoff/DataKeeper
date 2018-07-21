@@ -2,10 +2,12 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_cust"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ui_theme"
-    tools:context=".addcustomer_activity">
+    tools:context=".addcustomer_activity"
+    tools:ignore="HardcodedText">
 
     <TextView
         android:id="@+id/textView5"
@@ -14,7 +16,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint=""
         android:ellipsize="none"
         android:fontFamily="sans-serif"
         android:text="@string/add_new_client"
@@ -585,7 +586,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:ems="10"
-                        android:hint="Mobile Number"
+                        android:hint="@string/mobile_number"
                         android:inputType="phone"
                         android:textAlignment="center"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -600,7 +601,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:ems="10"
-                        android:hint="Secondary Mobile Number"
+                        android:hint="@string/secondary_mobile_number"
                         android:inputType="phone"
                         android:textAlignment="center"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -688,7 +689,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:background="@drawable/gradient2"
+        android:background="@drawable/btn2"
         android:text="SAVE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

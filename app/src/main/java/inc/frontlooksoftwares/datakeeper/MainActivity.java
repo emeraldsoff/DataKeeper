@@ -13,7 +13,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity {
+    //    implements View.OnClickListener
     FirebaseAuth.AuthStateListener mAuthlistener;
     FirebaseAuth mAuth;
 
@@ -61,29 +62,63 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         title=findViewById(R.id.title);
 
+        custadd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
+            }
+        });
+
+        custupdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
+            }
+        });
+
+        custshow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
+            }
+        });
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
+            }
+        });
+
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
+            }
+        });
 
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.add_cust:
-                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
-                break;
-            case R.id.update_cust:
-                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
-                break;
-            case R.id.show_cust:
-                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
-                break;
-            case R.id.setting:
-                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
-                break;
-            case R.id.aboutus:
-                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
-                break;
-
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.add_cust:
+//                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
+//                break;
+//            case R.id.update_cust:
+//                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
+//                break;
+//            case R.id.show_cust:
+//                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
+//                break;
+//            case R.id.setting:
+//                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
+//                break;
+//            case R.id.aboutus:
+//                startActivity(new Intent(MainActivity.this, addcustomer_activity.class));
+//                break;
+//
+//        }
+//    }
 }

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient1"
-    tools:context=".mobile_signin">
+    tools:context=".mobile_signin"
+    tools:ignore="HardcodedText">
     <!--android:background="#fff200"-->
     <EditText
         android:id="@+id/mob_no"
@@ -25,11 +26,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/instruction2"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/instruction2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -146,7 +147,7 @@
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
         android:text="@string/resend_code"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -168,7 +169,7 @@
         android:inputType="number"
         android:padding="8dp"
         android:textAlignment="center"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mobno_submit"
@@ -187,7 +188,7 @@
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
         android:text="@string/submit"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -204,7 +205,7 @@
         android:layout_marginStart="8dp"
         android:padding="10dp"
         android:text="sign out"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
