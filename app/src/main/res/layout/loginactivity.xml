@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:animationCache="true"
-    android:background="@drawable/gradient1"
+    android:background="@drawable/gradient1_ui"
     tools:animateLayoutChanges="true"
     tools:animationCache="true"
     tools:context=".loginactivity">

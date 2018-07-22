@@ -46,6 +46,8 @@ public class addcustomer_activity extends Activity {
 
     private ConstraintLayout add_cust;
     private Button save;
+
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,16 +59,7 @@ public class addcustomer_activity extends Activity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int i = 0;
-                int j = 0;
-                if (j == 1) {
-                    add_cust.setBackground(getDrawable(R.drawable.ui_theme2));
-                    i = i + 1;
-                } else if (i == 1) {
-                    j = j + 1;
-                    i = 0;
-                    add_cust.setBackground(getDrawable(R.drawable.ui_theme));
-                }
+
             }
         });
 

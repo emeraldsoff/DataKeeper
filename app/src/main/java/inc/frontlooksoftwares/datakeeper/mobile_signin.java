@@ -222,7 +222,6 @@ public class mobile_signin extends Activity implements
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
         // [END start_phone_auth]
-        timer.cancel();
         timer = new CountDownTimer(60000, 1000) {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
@@ -260,20 +259,20 @@ public class mobile_signin extends Activity implements
                 this,               // Activity (for callback binding)
                 mCallbacks,         // OnVerificationStateChangedCallbacks
                 token);             // ForceResendingToken from callbacks
-        timer.cancel();
+
 //        code_sent.setText("Code Requested");
         timer = new CountDownTimer(60000, 1000) {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
                 show_time.setText("seconds remaining: " + millisUntilFinished / 1000);
                 //here you can have your logic to set text to edittext
-                mResendButton.setVisibility(View.GONE);
+//                mResendButton.setVisibility(View.GONE);
             }
 
             @SuppressLint("SetTextI18n")
             public void onFinish() {
                 show_time.setText("Time Up!!");
-                mResendButton.setVisibility(View.VISIBLE);
+//                mResendButton.setVisibility(View.VISIBLE);
             }
         }.start();
     }
@@ -417,11 +416,12 @@ public class mobile_signin extends Activity implements
                 enableViews(mStartButton, instruction, mVerifyButton, mResendButton, mPhoneNumberField, mVerificationField);
                 disableViews(code_sent);
                 //  mDetailText.setText(R.string.status_verification_failed);
-                mStartButton.setVisibility(View.VISIBLE);
-                mPhoneNumberField.setVisibility(View.VISIBLE);
-                instruction.setVisibility(View.VISIBLE);
-                instruction2.setVisibility(View.VISIBLE);
-                mResendButton.setVisibility(View.VISIBLE);
+//                mStartButton.setVisibility(View.VISIBLE);
+//                mPhoneNumberField.setVisibility(View.VISIBLE);
+//                instruction.setVisibility(View.VISIBLE);
+//                instruction2.setVisibility(View.VISIBLE);
+//                mResendButton.setVisibility(View.VISIBLE);
+//                timer.cancel();
                 Toast.makeText(mobile_signin.this, "verification failed, check if phone number is correct", Toast.LENGTH_LONG).show();
                 break;
             case STATE_VERIFY_SUCCESS:
@@ -515,13 +515,13 @@ public class mobile_signin extends Activity implements
 
                 startPhoneNumberVerification(mPhoneNumberField.getText().toString());
 
-                mResendButton.setVisibility(View.GONE);
-                mVerificationField.setVisibility(View.VISIBLE);
-                mVerifyButton.setVisibility(View.VISIBLE);
-                mStartButton.setVisibility(View.GONE);
-                mPhoneNumberField.setVisibility(View.GONE);
-                instruction.setVisibility(View.GONE);
-                instruction2.setVisibility(View.GONE);
+//                mResendButton.setVisibility(View.GONE);
+//                mVerificationField.setVisibility(View.VISIBLE);
+//                mVerifyButton.setVisibility(View.VISIBLE);
+//                mStartButton.setVisibility(View.GONE);
+//                mPhoneNumberField.setVisibility(View.GONE);
+//                instruction.setVisibility(View.GONE);
+//                instruction2.setVisibility(View.GONE);
 
 
                 break;
