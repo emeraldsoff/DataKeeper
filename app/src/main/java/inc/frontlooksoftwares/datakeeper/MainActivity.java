@@ -28,6 +28,7 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
 //                Logger.d("Start splash screen");
+
                 mAuthlistener = new FirebaseAuth.AuthStateListener() {
                     @Override
                     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {

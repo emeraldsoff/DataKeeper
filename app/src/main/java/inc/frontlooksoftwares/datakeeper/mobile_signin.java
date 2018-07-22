@@ -32,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.TimeUnit;
 
+@SuppressLint("SetTextI18n")
 public class mobile_signin extends Activity implements
         View.OnClickListener {
 
@@ -69,6 +70,8 @@ public class mobile_signin extends Activity implements
 
     private EditText mPhoneNumberField;
     private EditText mVerificationField;
+
+    private CountDownTimer timer;
 
     private TextView show_time, code_sent, instruction, instruction2;
 //    private CountDownTimer timer;
@@ -219,7 +222,8 @@ public class mobile_signin extends Activity implements
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
         // [END start_phone_auth]
-        CountDownTimer timer = new CountDownTimer(60000, 1000) {
+        timer.cancel();
+        timer = new CountDownTimer(60000, 1000) {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
                 show_time.setText("seconds remaining: " + millisUntilFinished / 1000);
@@ -236,6 +240,7 @@ public class mobile_signin extends Activity implements
 
         mVerificationInProgress = true;
     }
+
     public String uid;
 
     private void verifyPhoneNumberWithCode(String verificationId, String code) {
@@ -255,19 +260,20 @@ public class mobile_signin extends Activity implements
                 this,               // Activity (for callback binding)
                 mCallbacks,         // OnVerificationStateChangedCallbacks
                 token);             // ForceResendingToken from callbacks
+        timer.cancel();
 //        code_sent.setText("Code Requested");
-        CountDownTimer timer = new CountDownTimer(60000, 1000) {
+        timer = new CountDownTimer(60000, 1000) {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
                 show_time.setText("seconds remaining: " + millisUntilFinished / 1000);
                 //here you can have your logic to set text to edittext
-//                mResendButton.setVisibility(View.GONE);
+                mResendButton.setVisibility(View.GONE);
             }
 
             @SuppressLint("SetTextI18n")
             public void onFinish() {
                 show_time.setText("Time Up!!");
-//                mResendButton.setVisibility(View.VISIBLE);
+                mResendButton.setVisibility(View.VISIBLE);
             }
         }.start();
     }
@@ -394,7 +400,7 @@ public class mobile_signin extends Activity implements
         switch (uiState) {
             case STATE_INITIALIZED:
                 // Initialized state, show only the phone number field and start button
-                enableViews(mStartButton, mPhoneNumberField, instruction);
+                enableViews(mStartButton, mPhoneNumberField, instruction, instruction2);
                 disableViews(mVerifyButton, mResendButton, mVerificationField, code_sent);
 //                mDetailText.setText(null);
                 break;
@@ -415,6 +421,7 @@ public class mobile_signin extends Activity implements
                 mPhoneNumberField.setVisibility(View.VISIBLE);
                 instruction.setVisibility(View.VISIBLE);
                 instruction2.setVisibility(View.VISIBLE);
+                mResendButton.setVisibility(View.VISIBLE);
                 Toast.makeText(mobile_signin.this, "verification failed, check if phone number is correct", Toast.LENGTH_LONG).show();
                 break;
             case STATE_VERIFY_SUCCESS:
@@ -508,7 +515,7 @@ public class mobile_signin extends Activity implements
 
                 startPhoneNumberVerification(mPhoneNumberField.getText().toString());
 
-                mResendButton.setVisibility(View.VISIBLE);
+                mResendButton.setVisibility(View.GONE);
                 mVerificationField.setVisibility(View.VISIBLE);
                 mVerifyButton.setVisibility(View.VISIBLE);
                 mStartButton.setVisibility(View.GONE);
