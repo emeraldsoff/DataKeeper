@@ -4,9 +4,17 @@
     <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
         <!-- Customize your theme here. -->
 
+
     </style>
 
     <style name="fullscreen1" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
     </style>
 
+    <style name="AppTheme1" parent="Base.Widget.Design.AppBarLayout">
+
+    </style>
+
+    <style name="AppTheme2" parent="Base.Widget.AppCompat.Light.PopupMenu">
+
+    </style>
 </resources>
