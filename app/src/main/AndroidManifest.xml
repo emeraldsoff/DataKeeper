@@ -34,7 +34,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name="inc.frontlooksoftwares.datakeeper.addcustomer_activity"></activity>
+        <activity android:name="inc.frontlooksoftwares.datakeeper.addclient_activity"></activity>
     </application>
 
 </manifest>
