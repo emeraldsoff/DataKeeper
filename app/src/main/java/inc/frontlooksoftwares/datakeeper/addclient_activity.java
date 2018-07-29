@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 
-import inc.frontlooksoftwares.datakeeper.R;
+//import inc.frontlooksoftwares.datakeeper.R;
 
 
 public class addclient_activity extends Activity implements View.OnClickListener {
