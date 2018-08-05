@@ -95,7 +95,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/gradient4flat">
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/clientphoto_btn"
                         android:layout_width="135dp"
                         android:layout_height="135dp"
@@ -103,10 +103,10 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
+                        android:background="@android:color/holo_blue_bright"
                         android:contentDescription="client photo"
                         android:elevation="8dp"
                         android:padding="8dp"
-                        android:src="@android:color/holo_blue_bright"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -405,6 +405,7 @@
                             android:layout_height="wrap_content"
                             android:text="Male"
                             android:textSize="14sp"
+                            android:onClick="onClick"
                             android:textStyle="bold" />
 
                         <RadioButton
@@ -412,6 +413,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Female"
+                            android:onClick="onClick"
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
@@ -420,6 +422,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Unspecified"
+                            android:onClick="onClick"
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
