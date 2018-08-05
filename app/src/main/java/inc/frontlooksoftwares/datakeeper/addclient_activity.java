@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,9 +30,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,7 +99,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
     String gender, date, app_userid;
     String g;
 
-    String img;
+    String img, photo_path;
 //    String imgDecodableString;
 //    private static int RESULT_LOAD_IMG = 1;
 
@@ -113,8 +118,10 @@ public class addclient_activity extends Activity implements View.OnClickListener
 
 
     //Photo
+    private StorageReference mStorageRef;
 
-//    private final static int RESULT_SELECT_IMAGE = 100;
+
+    //    private final static int RESULT_SELECT_IMAGE = 100;
 //    public static final int MEDIA_TYPE_IMAGE = 1;
 //    private static final String TAG = "GalleryUtil";
 //
@@ -131,6 +138,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Harlow.ttf");
         app_title_bar.setTypeface(typeface);
         mcontext = this;
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setActionBar(toolbar);
         setUpMenu();
@@ -229,6 +237,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
             @Override
             public void onClick(View view) {
 //                adddata();
+//                img =
                 id = id_e.getText().toString().trim();
                 fname = fname_e.getText().toString().trim();
                 mname = mname_e.getText().toString().trim();
@@ -292,6 +301,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
                         address_i, address_ii, city, post_office, areapin, dist, state, country,
                         isdcode, std, mobile_no, smobile_no, telephoneno, emailid,
                         date, app_userid)) {
+                    upload_dp();
                     fdb.collection("DATAKEEPER/" + app_userid + "/" + id).document("basic")
                             .set(client)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -360,6 +370,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
                 if (extras2 != null) {
                     Bitmap image = extras2.getParcelable("data");
                     photo.setImageBitmap(image);
+//                    photo_path.getBytes();
                 }
             }
         } catch (RuntimeException x) {
@@ -372,6 +383,31 @@ public class addclient_activity extends Activity implements View.OnClickListener
             Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
             toast.show();
         }
+    }
+
+    public void upload_dp() {
+
+        // Get the data from an ImageView as bytes
+        photo.setDrawingCacheEnabled(true);
+        photo.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) photo.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        StorageReference mountainsRef = mStorageRef.child("datakeeper/" + app_userid + "/" + id + "/dp.jpg");
+        UploadTask uploadTask = mountainsRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+            }
+        });
     }
 
     private void setUpMenu() {
