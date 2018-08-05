@@ -323,10 +323,6 @@ public class addclient_activity extends Activity implements View.OnClickListener
         });
     }
 
-//    public void setDate() {
-//        date = com.google.firebase.Timestamp.now().toDate().toString();
-//    }
-
     private boolean validateInputs(String id, String fname, String mname, String lname, String gfname, String gmname, String glname, String dob, String gender, String birthplace, String nationality, String address_i, String
             address_ii, String city, String post_office, String areapin, String dist, String state, String country, String isdcode, String std, String mobile_no, String smobile_no, String telephoneno, String
                                            emailid, String date, String app_userid) {
