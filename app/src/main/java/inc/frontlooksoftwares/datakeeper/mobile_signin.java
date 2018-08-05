@@ -230,7 +230,6 @@ public class mobile_signin extends Activity implements
                 //here you can have your logic to set text to edittext
 //                mResendButton.setVisibility(View.GONE);
             }
-
             @SuppressLint("SetTextI18n")
             public void onFinish() {
                 show_time.setText("Time Up!!");

@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,13 +46,13 @@ public class addclient_activity extends Activity implements View.OnClickListener
     FirebaseAuth mAuth;
     private Context mcontext;
     ResideMenu resideMenu;
+    TextView app_title_bar;
 
     private ResideMenuItem Home,Search_Client,Add_Client,Edit_Client,Delete_Client,Setting,Share,About_us;
     String userid;
     @Override
     protected void onStart() {
         super.onStart();
-
         mAuth = FirebaseAuth.getInstance();
         int SPLASH_DISPLAY_LENGTH = 0;
         new Handler().postDelayed(new Runnable() {
@@ -90,7 +92,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
     String address_i, address_ii, city, country, post_office, areapin, dist, state;
     String isdcode, std, mobile_no, smobile_no, telephoneno, emailid;
     String gender, date, app_userid;
-    String g, males, females, unspecifieds, app_username;
+    String g;
 
     String img;
 //    String imgDecodableString;
@@ -111,6 +113,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
 
 
     //Photo
+
 //    private final static int RESULT_SELECT_IMAGE = 100;
 //    public static final int MEDIA_TYPE_IMAGE = 1;
 //    private static final String TAG = "GalleryUtil";
@@ -124,7 +127,9 @@ public class addclient_activity extends Activity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addclient_activity);
-
+        app_title_bar = findViewById(R.id.app_title_bar);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Harlow.ttf");
+        app_title_bar.setTypeface(typeface);
         mcontext = this;
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setActionBar(toolbar);
@@ -383,6 +388,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
 
     public void createMenuItems(){
         // create menu items;
+
         Home     = new ResideMenuItem(this, R.drawable.round_home_24, "Home");
         Add_Client  = new ResideMenuItem(this, R.drawable.round_person_add_24, "Add Client Details" );
         Search_Client = new ResideMenuItem(this, R.drawable.baseline_search_24, "Search Client Details");

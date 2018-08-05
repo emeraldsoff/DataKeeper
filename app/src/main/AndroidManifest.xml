@@ -22,22 +22,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="inc.frontlooksoftwares.datakeeper.MainActivity">
+        <activity android:name=".splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="inc.frontlooksoftwares.datakeeper.loginactivity" />
-        <activity android:name="inc.frontlooksoftwares.datakeeper.mobile_signin" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".loginactivity" />
+        <activity android:name=".mobile_signin" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name="inc.frontlooksoftwares.datakeeper.addclient_activity" />
-        <activity android:name="inc.frontlooksoftwares.datakeeper.GalleryUtil" />
+        <activity android:name=".addclient_activity" />
+        <activity android:name=".GalleryUtil" />
+
     </application>
 
 </manifest>

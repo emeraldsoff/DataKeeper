@@ -30,8 +30,6 @@
     <!--<string name="hello_blank_fragment">Hello blank fragment</string>-->
 
 
-
-
     <!--&lt;!&ndash;Sliding Drawer&ndash;&gt;-->
     <!--<string name="navigation_drawer_open">Open navigation drawer</string>-->
     <!--<string name="navigation_drawer_close">Close navigation drawer</string>-->
@@ -48,12 +46,12 @@
 
     <!--&lt;!&ndash; Toolbar titles when navigation menu item is selected &ndash;&gt;-->
     <!--<string-array name="nav_item_activity_titles">-->
-        <!--<item>Home</item>-->
-        <!--<item>Add New Clients</item>-->
-        <!--<item>Edit/Delete Client</item>-->
-        <!--<item>Search Client</item>-->
-        <!--<item>Notifications</item>-->
-        <!--<item>Settings</item>-->
+    <!--<item>Home</item>-->
+    <!--<item>Add New Clients</item>-->
+    <!--<item>Edit/Delete Client</item>-->
+    <!--<item>Search Client</item>-->
+    <!--<item>Notifications</item>-->
+    <!--<item>Settings</item>-->
     <!--</string-array>-->
 
     <!--<string name="activity_title_about_us">About Us</string>-->

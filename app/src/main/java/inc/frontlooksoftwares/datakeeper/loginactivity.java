@@ -2,12 +2,14 @@ package inc.frontlooksoftwares.datakeeper;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -31,7 +33,7 @@ public class loginactivity extends Activity {
     Button mob_signin;
     FirebaseAuth.AuthStateListener mAuthlistener;
     GoogleSignInClient mGoogleSignInClient;
-
+    TextView Brand;
     @Override
     protected void onStart() {
         super.onStart();
@@ -60,7 +62,10 @@ public class loginactivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginactivity);
-
+        Brand = findViewById(R.id.textView);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Harlow.ttf");
+        Brand.setTypeface(typeface);
+//        Brand.setTextSize(36,36);
         mob_signin = findViewById(R.id.mobile_signin);
         gbtn = findViewById(R.id.googlebutton);
 //        fbtn=findViewById(R.id.facebookbutton);
