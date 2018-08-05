@@ -171,75 +171,26 @@ public class addclient_activity extends Activity implements View.OnClickListener
         female = findViewById(R.id.g_female);
         unspecified = findViewById(R.id.g_unspecified);
 
-//        male.setOnClickListener(onCh);
-        male.setOnClickListener(new View.OnClickListener() {
+        gender_grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                g = "male";
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.g_male:
+                        g = male.getText().toString();
+                        break;
+                    case R.id.g_female:
+                        g = female.getText().toString();
+                        break;
+                    case R.id.g_unspecified:
+                        g = unspecified.getText().toString();
+                        break;
+//                    default:
+//                        g = male.getText().toString();
+//                        break;
+                }
+
             }
         });
-        female.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                g = "female";
-            }
-        });
-        unspecified.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                g = "unspecified";
-            }
-        });
-
-//        gender_grp.getCheckedRadioButtonId();
-//        males = male.getText().toString();
-//        females = female.getText().toString();
-//        unspecifieds = unspecified.getText().toString();
-        //strings
-
-//        id = id_e.getText().toString().trim();
-//        fname = fname_e.getText().toString().trim();
-//        mname = mname_e.getText().toString().trim();
-//        lname = lname_e.getText().toString().trim();
-//        gfname = gfname_e.getText().toString().trim();
-//        gmname = gmname_e.getText().toString().trim();
-//        glname = glname_e.getText().toString().trim();
-//        dob = dob_e.getText().toString().trim();
-//        gender = g;
-//        birthplace = birthplace_e.getText().toString().trim();
-//        nationality = nationality_e.getText().toString().trim();
-//        address_i = adrii_vlg_area.getText().toString().trim();
-//        address_ii = adrii_vlg_area.getText().toString().trim();
-//        city = adriii_city.getText().toString().trim();
-//        post_office = adriv_po.getText().toString().trim();
-//        areapin = adrv_pin.getText().toString().trim();
-//        dist = adrvi_dist.getText().toString().trim();
-//        state = adrvii_state.getText().toString().trim();
-//        country = adrviii_country.getText().toString().trim();
-//        isdcode = isd.getText().toString().trim();
-//        std = std_e.getText().toString().trim();
-//        mobile_no = mob.getText().toString().trim();
-//        smobile_no = smob.getText().toString().trim();
-//        telephoneno = tele.getText().toString().trim();
-//        emailid = email.getText().toString().trim();
-//        date = DateTimeKeyListener.getInstance().toString().trim();
-//
-//        app_userid = userid;
-////        c_photo = findViewById(R.id.photo);
-//
-//        fdb.setFirestoreSettings(settings);
-
-
-//        dob.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//
-//            }
-//
-//
-//
-//
-//        });
 
         photo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -268,19 +219,6 @@ public class addclient_activity extends Activity implements View.OnClickListener
                 resideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
             }
         });
-
-//        switch (gender_grp.getCheckedRadioButtonId()) {
-//            case R.id.g_male:
-//                g = males;
-//                break;
-//            case R.id.g_female:
-//                g = females;
-//                break;
-//            case R.id.g_unspecified:
-//                g = unspecifieds;
-//                break;
-//        }
-
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -312,7 +250,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
                 telephoneno = tele.getText().toString().trim();
                 emailid = email.getText().toString().trim();
                 app_userid = userid;
-                setDate();
+                date = com.google.firebase.Timestamp.now().toDate().toString();
 
                 Map<String, Object> client = new HashMap<>();
                 client.put("id", id);
@@ -344,7 +282,6 @@ public class addclient_activity extends Activity implements View.OnClickListener
                 client.put("date", date);
                 client.put("app_userid", app_userid);
 
-
                 if (!validateInputs(fname, mname, lname, gfname,
                         gmname, glname, dob, birthplace, gender, nationality, id,
                         address_i, address_ii, city, post_office, areapin, dist, state, country,
@@ -366,44 +303,14 @@ public class addclient_activity extends Activity implements View.OnClickListener
                                     Toast.makeText(addclient_activity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             });
-
-//                    CollectionReference datakeeper_clientbasics = fdb.collection("DATAKEEPER/"+app_userid+"/"+id);
-////                    db_access.insert_clientdata_basic()
-////                    fdb.collection("DATAKEEPER/"+app_userid+"/"+id);
-//
-//                    Users users = new Users(fname, mname, lname, gfname,
-//                        gmname, glname, dob, birthplace, gender, nationality, id,
-//                        address_i, address_ii,city, post_office, areapin, dist, state, country,
-//                        isdcode, std, mobile_no, smobile_no, telephoneno, emailid,
-//                        date, app_userid);
-//
-//                    fdb.collection("DATAKEEPER/"+app_userid+"/"+id).document("basic").set(users);
-//
-//                                    fdb.collection("DATAKEEPER/"+app_userid+"/"+id).document("basic");
-//                datakeeper_clientbasics.add(users)
-//                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                            @Override
-//                            public void onSuccess(DocumentReference doc) {
-//                                Toast.makeText(addclient_activity.this,"Client Added To Database...",Toast.LENGTH_LONG).show();
-//                            }
-//                        }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(addclient_activity.this,e.getMessage(),Toast.LENGTH_LONG).show();
-//                    }
-//                });
-
                 }
             }
         });
     }
 
-    public void setDate() {
-//        Timestamp timestamp = getIns.getTimestamp("created_at");
-        date = com.google.firebase.Timestamp.now().toDate().toString();
-//        Date.getDefaultInstance();
-//        date=Date.getDefaultInstance().toString();
-    }
+//    public void setDate() {
+//        date = com.google.firebase.Timestamp.now().toDate().toString();
+//    }
 
     private boolean validateInputs(String id, String fname, String mname, String lname, String gfname, String gmname, String glname, String dob, String gender, String birthplace, String nationality, String address_i, String
             address_ii, String city, String post_office, String areapin, String dist, String state, String country, String isdcode, String std, String mobile_no, String smobile_no, String telephoneno, String
