@@ -1,6 +1,7 @@
 package inc.frontlooksoftwares.datakeeper;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.special.ResideMenu.ResideMenu;
@@ -238,33 +240,34 @@ public class addclient_activity extends Activity implements View.OnClickListener
             public void onClick(View view) {
 //                adddata();
 //                img =
-                id = id_e.getText().toString().trim();
-                fname = fname_e.getText().toString().trim();
-                mname = mname_e.getText().toString().trim();
-                lname = lname_e.getText().toString().trim();
-                gfname = gfname_e.getText().toString().trim();
-                gmname = gmname_e.getText().toString().trim();
-                glname = glname_e.getText().toString().trim();
-                dob = dob_e.getText().toString().trim();
-                gender = g;
-                birthplace = birthplace_e.getText().toString().trim();
-                nationality = nationality_e.getText().toString().trim();
-                address_i = adri_road_house.getText().toString().trim();
-                address_ii = adrii_vlg_area.getText().toString().trim();
-                city = adriii_city.getText().toString().trim();
-                post_office = adriv_po.getText().toString().trim();
-                areapin = adrv_pin.getText().toString().trim();
-                dist = adrvi_dist.getText().toString().trim();
-                state = adrvii_state.getText().toString().trim();
-                country = adrviii_country.getText().toString().trim();
-                isdcode = isd.getText().toString().trim();
-                std = std_e.getText().toString().trim();
-                mobile_no = mob.getText().toString().trim();
-                smobile_no = smob.getText().toString().trim();
-                telephoneno = tele.getText().toString().trim();
-                emailid = email.getText().toString().trim();
-                app_userid = userid;
-                date = com.google.firebase.Timestamp.now().toDate().toString();
+//                id = id_e.getText().toString().trim();
+//                fname = fname_e.getText().toString().trim();
+//                mname = mname_e.getText().toString().trim();
+//                lname = lname_e.getText().toString().trim();
+//                gfname = gfname_e.getText().toString().trim();
+//                gmname = gmname_e.getText().toString().trim();
+//                glname = glname_e.getText().toString().trim();
+//                dob = dob_e.getText().toString().trim();
+//                gender = g;
+//                birthplace = birthplace_e.getText().toString().trim();
+//                nationality = nationality_e.getText().toString().trim();
+//                address_i = adri_road_house.getText().toString().trim();
+//                address_ii = adrii_vlg_area.getText().toString().trim();
+//                city = adriii_city.getText().toString().trim();
+//                post_office = adriv_po.getText().toString().trim();
+//                areapin = adrv_pin.getText().toString().trim();
+//                dist = adrvi_dist.getText().toString().trim();
+//                state = adrvii_state.getText().toString().trim();
+//                country = adrviii_country.getText().toString().trim();
+//                isdcode = isd.getText().toString().trim();
+//                std = std_e.getText().toString().trim();
+//                mobile_no = mob.getText().toString().trim();
+//                smobile_no = smob.getText().toString().trim();
+//                telephoneno = tele.getText().toString().trim();
+//                emailid = email.getText().toString().trim();
+//                app_userid = userid;
+//                date = com.google.firebase.Timestamp.now().toDate().toString();
+                data_allocation();
 
                 Map<String, Object> client = new HashMap<>();
                 client.put("id", id);
@@ -301,7 +304,9 @@ public class addclient_activity extends Activity implements View.OnClickListener
                         address_i, address_ii, city, post_office, areapin, dist, state, country,
                         isdcode, std, mobile_no, smobile_no, telephoneno, emailid,
                         date, app_userid)) {
+
                     upload_dp();
+                    add_clientdata_basic();
                     fdb.collection("DATAKEEPER/" + app_userid + "/" + id).document("basic")
                             .set(client)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -320,7 +325,87 @@ public class addclient_activity extends Activity implements View.OnClickListener
                             });
                 }
             }
-        });
+                                }
+        );
+    }
+
+    private void data_allocation() {
+        id = id_e.getText().toString().trim();
+        fname = fname_e.getText().toString().trim();
+        mname = mname_e.getText().toString().trim();
+        lname = lname_e.getText().toString().trim();
+        gfname = gfname_e.getText().toString().trim();
+        gmname = gmname_e.getText().toString().trim();
+        glname = glname_e.getText().toString().trim();
+        dob = dob_e.getText().toString().trim();
+        gender = g;
+        birthplace = birthplace_e.getText().toString().trim();
+        nationality = nationality_e.getText().toString().trim();
+        address_i = adri_road_house.getText().toString().trim();
+        address_ii = adrii_vlg_area.getText().toString().trim();
+        city = adriii_city.getText().toString().trim();
+        post_office = adriv_po.getText().toString().trim();
+        areapin = adrv_pin.getText().toString().trim();
+        dist = adrvi_dist.getText().toString().trim();
+        state = adrvii_state.getText().toString().trim();
+        country = adrviii_country.getText().toString().trim();
+        isdcode = isd.getText().toString().trim();
+        std = std_e.getText().toString().trim();
+        mobile_no = mob.getText().toString().trim();
+        smobile_no = smob.getText().toString().trim();
+        telephoneno = tele.getText().toString().trim();
+        emailid = email.getText().toString().trim();
+        app_userid = userid;
+        date = com.google.firebase.Timestamp.now().toDate().toString();
+    }
+
+    private void add_clientdata_basic() {
+        Map<String, Object> client = new HashMap<>();
+        client.put("id", id);
+//                client.put("img",);
+        client.put("fname", fname);
+        client.put("mname", mname);
+        client.put("lname", lname);
+        client.put("gfname", gfname);
+        client.put("gmname", gmname);
+        client.put("glname", glname);
+        client.put("dob", dob);
+        client.put("gender", gender);
+        client.put("birthplace", birthplace);
+        client.put("nationality", nationality);
+        client.put("address_i", address_i);
+        client.put("address_ii", address_ii);
+        client.put("city", city);
+        client.put("post_office", post_office);
+        client.put("areapin", areapin);
+        client.put("dist", dist);
+        client.put("state", state);
+        client.put("country", country);
+        client.put("isdcode", isdcode);
+        client.put("std", std);
+        client.put("mobile_no", mobile_no);
+        client.put("smobile_no", smobile_no);
+        client.put("telephoneno", telephoneno);
+        client.put("emailid", emailid);
+        client.put("date", date);
+        client.put("app_userid", app_userid);
+
+        fdb.collection("DATAKEEPER/" + app_userid + "/" + id).document("basic")
+                .set(client)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                        Toast.makeText(addclient_activity.this, "Client Added To Database...", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                        Toast.makeText(addclient_activity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
     private boolean validateInputs(String id, String fname, String mname, String lname, String gfname, String gmname, String glname, String dob, String gender, String birthplace, String nationality, String address_i, String
@@ -362,7 +447,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
         try {
             if (requestCode == PICK_FROM_GALLERY) {
                 Bundle extras2 = data.getExtras();
-                img = extras2.toString();
+//                img = extras2.toString();
                 if (extras2 != null) {
                     Bitmap image = extras2.getParcelable("data");
                     photo.setImageBitmap(image);
@@ -382,7 +467,9 @@ public class addclient_activity extends Activity implements View.OnClickListener
     }
 
     public void upload_dp() {
-
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Uploading...");
+        progressDialog.show();
         // Get the data from an ImageView as bytes
         photo.setDrawingCacheEnabled(true);
         photo.buildDrawingCache();
@@ -396,14 +483,27 @@ public class addclient_activity extends Activity implements View.OnClickListener
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
+                progressDialog.dismiss();
+                Toast.makeText(addclient_activity.this, "Failed " + exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        })
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
                 // ...
+                progressDialog.dismiss();
+                Toast.makeText(addclient_activity.this, "Uploaded", Toast.LENGTH_SHORT).show();
             }
-        });
+                })
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
+                                .getTotalByteCount());
+                        progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                    }
+                });
     }
 
     private void setUpMenu() {

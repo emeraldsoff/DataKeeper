@@ -143,6 +143,7 @@ public class mobile_signin extends Activity implements
                 // for instance if the the phone number format is not valid.
                 Log.w(TAG, "onVerificationFailed", e);
                 // [START_EXCLUDE silent]
+
                 mVerificationInProgress = false;
                 // [END_EXCLUDE]
 

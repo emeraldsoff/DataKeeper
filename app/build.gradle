@@ -11,6 +11,7 @@ android {
         }
     }
     compileSdkVersion 27
+
     defaultConfig {
         applicationId "inc.frontlooksoftwares.datakeeper"
         minSdkVersion 21
