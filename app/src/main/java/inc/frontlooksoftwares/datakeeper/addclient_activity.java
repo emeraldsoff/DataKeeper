@@ -55,7 +55,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
     ResideMenu resideMenu;
     TextView app_title_bar;
 
-    private ResideMenuItem Home,Search_Client,Add_Client,Edit_Client,Delete_Client,Setting,Share,About_us;
+    private ResideMenuItem FrontLook_DataKeeper, Home, Search_Client, Add_Client, Edit_Client, Delete_Client, Setting, Share, About_us;
     String userid;
     @Override
     protected void onStart() {
@@ -479,7 +479,8 @@ public class addclient_activity extends Activity implements View.OnClickListener
         byte[] data = baos.toByteArray();
         StorageReference mountainsRef = mStorageRef.child("datakeeper/" + app_userid + "/" + id + "/dp.jpg");
         UploadTask uploadTask = mountainsRef.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
+        uploadTask
+                .addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
@@ -520,9 +521,9 @@ public class addclient_activity extends Activity implements View.OnClickListener
 
     public void createMenuItems(){
         // create menu items;
-
-        Home     = new ResideMenuItem(this, R.drawable.round_home_24, "Home");
-        Add_Client  = new ResideMenuItem(this, R.drawable.round_person_add_24, "Add Client Details" );
+        FrontLook_DataKeeper = new ResideMenuItem(this, R.drawable.menubackgroundc, "");
+        Home = new ResideMenuItem(this, R.drawable.round_home_24, "Home");
+        Add_Client = new ResideMenuItem(this, R.drawable.round_person_add_24, "Add Client Details");
         Search_Client = new ResideMenuItem(this, R.drawable.baseline_search_24, "Search Client Details");
         Edit_Client = new ResideMenuItem(this, R.drawable.round_edit_24, "Edit Client Details");
         Delete_Client = new ResideMenuItem(this, R.drawable.round_delete_sweep_24, "Delete Client");
@@ -533,7 +534,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
 
     public void Menuitemlisten(){
         Home.setOnClickListener(this);
-        Add_Client.setOnClickListener(this);
+//        Add_Client.setOnClickListener(this);
         Search_Client.setOnClickListener(this);
         Edit_Client.setOnClickListener(this);
         Delete_Client.setOnClickListener(this);
@@ -546,9 +547,9 @@ public class addclient_activity extends Activity implements View.OnClickListener
         if (view==Home){
             startActivity(new Intent(addclient_activity.this, MainActivity.class));
         }
-        else if (view==Add_Client){
-            startActivity(new Intent(addclient_activity.this, addclient_activity.class));
-        }
+//        else if (view==Add_Client){
+//            startActivity(new Intent(addclient_activity.this, addclient_activity.class));
+//        }
         else if (view==Search_Client){
             startActivity(new Intent(addclient_activity.this, MainActivity.class));
         }
@@ -571,10 +572,11 @@ public class addclient_activity extends Activity implements View.OnClickListener
     }
 
     public void addMenuItems_inMenu(){
-        resideMenu.addMenuItem(Home,    ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(FrontLook_DataKeeper, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(Home, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(Add_Client, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(Search_Client,ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(Edit_Client,ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(Search_Client, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(Edit_Client, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(Delete_Client, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(Setting, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(Share, ResideMenu.DIRECTION_LEFT);

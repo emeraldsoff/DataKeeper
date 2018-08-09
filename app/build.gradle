@@ -11,13 +11,13 @@ android {
         }
     }
     compileSdkVersion 27
-
+    def vcode = (int)(((new Date().getTime()/1000) - 1451606400) / 10)
     defaultConfig {
         applicationId "inc.frontlooksoftwares.datakeeper"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode vcode
+        versionName "FrontLook DataKeeper 1.0."+vcode
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
 
