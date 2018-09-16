@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
@@ -35,6 +36,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.muddzdev.styleabletoastlibrary.StyleableToast;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 
@@ -51,12 +53,8 @@ public class addclient_activity extends Activity implements View.OnClickListener
 
     FirebaseAuth.AuthStateListener mAuthlistener;
     FirebaseAuth mAuth;
-    private Context mcontext;
-    ResideMenu resideMenu;
-    TextView app_title_bar;
-
-    private ResideMenuItem FrontLook_DataKeeper, Home, Search_Client, Add_Client, Edit_Client, Delete_Client, Setting, Share, About_us;
     String userid;
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -72,6 +70,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
                         FirebaseUser user = firebaseAuth.getCurrentUser();
                         if (user != null) {
                             userid = mAuth.getUid();
+                            Toast.makeText(addclient_activity.this, "Welcome " + userid, Toast.LENGTH_LONG).show();
                         } else {
                             startActivity(new Intent(addclient_activity.this, loginactivity.class));
                         }
@@ -82,6 +81,12 @@ public class addclient_activity extends Activity implements View.OnClickListener
             }
         }, SPLASH_DISPLAY_LENGTH);
     }
+
+    private Context mcontext;
+    ResideMenu resideMenu;
+    TextView app_title_bar;
+
+    private ResideMenuItem FrontLook_DataKeeper, Home, Search_Client, Add_Client, Edit_Client, Delete_Client, Setting, Share, About_us;
 
     private ConstraintLayout add_cust;
     private Button save;
@@ -99,9 +104,10 @@ public class addclient_activity extends Activity implements View.OnClickListener
     String address_i, address_ii, city, country, post_office, areapin, dist, state;
     String isdcode, std, mobile_no, smobile_no, telephoneno, emailid;
     String gender, date, app_userid;
+    String dp_link;
     String g;
 
-    String img, photo_path;
+    String img, photo_path, dp_store_link;
 //    String imgDecodableString;
 //    private static int RESULT_LOAD_IMG = 1;
 
@@ -115,9 +121,9 @@ public class addclient_activity extends Activity implements View.OnClickListener
 //    SQLiteDatabase db_add;
     FirebaseFirestore fdb = FirebaseFirestore.getInstance();
     FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+            .setTimestampsInSnapshotsEnabled(true)
             .setPersistenceEnabled(true)
             .build();
-
 
     //Photo
     private StorageReference mStorageRef;
@@ -140,10 +146,11 @@ public class addclient_activity extends Activity implements View.OnClickListener
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Harlow.ttf");
         app_title_bar.setTypeface(typeface);
         mcontext = this;
-        mStorageRef = FirebaseStorage.getInstance().getReference();
+
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setActionBar(toolbar);
         setUpMenu();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 //        db.onCreate(SQLiteDatabase db);
         //resources declared
         save = findViewById(R.id.save_data);
@@ -224,6 +231,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
                             Intent.createChooser(intent, "Complete action using"),
                             PICK_FROM_GALLERY);
                 } catch (ActivityNotFoundException e) {
+                    Toast.makeText(addclient_activity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -238,6 +246,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
 //                adddata();
 //                img =
 //                id = id_e.getText().toString().trim();
@@ -267,62 +276,110 @@ public class addclient_activity extends Activity implements View.OnClickListener
 //                emailid = email.getText().toString().trim();
 //                app_userid = userid;
 //                date = com.google.firebase.Timestamp.now().toDate().toString();
-                data_allocation();
+                    data_allocation();
 
-                Map<String, Object> client = new HashMap<>();
-                client.put("id", id);
+//                    Map<String, Object> client = new HashMap<>();
+//                    client.put("id", id);
+////                client.put("img",);
+//                    client.put("fname", fname);
+//                    client.put("mname", mname);
+//                    client.put("lname", lname);
+//                    client.put("gfname", gfname);
+//                    client.put("gmname", gmname);
+//                    client.put("glname", glname);
+//                    client.put("dob", dob);
+//                    client.put("gender", gender);
+//                    client.put("birthplace", birthplace);
+//                    client.put("nationality", nationality);
+//                    client.put("address_i", address_i);
+//                    client.put("address_ii", address_ii);
+//                    client.put("city", city);
+//                    client.put("post_office", post_office);
+//                    client.put("areapin", areapin);
+//                    client.put("dist", dist);
+//                    client.put("state", state);
+//                    client.put("country", country);
+//                    client.put("isdcode", isdcode);
+//                    client.put("std", std);
+//                    client.put("mobile_no", mobile_no);
+//                    client.put("smobile_no", smobile_no);
+//                    client.put("telephoneno", telephoneno);
+//                    client.put("emailid", emailid);
+//                    client.put("date", date);
+//                    client.put("app_userid", app_userid);
+
+                    if (!validateInputs(fname, mname, lname, gfname,
+                            gmname, glname, dob, birthplace, gender, nationality, id,
+                            address_i, address_ii, city, post_office, areapin, dist, state, country,
+                            isdcode, std, mobile_no, smobile_no, telephoneno, emailid,
+                            date, app_userid)) {
+
+                        upload_dp();
+                        Map<String, Object> client = new HashMap<>();
+                        client.put("id", id);
 //                client.put("img",);
-                client.put("fname", fname);
-                client.put("mname", mname);
-                client.put("lname", lname);
-                client.put("gfname", gfname);
-                client.put("gmname", gmname);
-                client.put("glname", glname);
-                client.put("dob", dob);
-                client.put("gender", gender);
-                client.put("birthplace", birthplace);
-                client.put("nationality", nationality);
-                client.put("address_i", address_i);
-                client.put("address_ii", address_ii);
-                client.put("city", city);
-                client.put("post_office", post_office);
-                client.put("areapin", areapin);
-                client.put("dist", dist);
-                client.put("state", state);
-                client.put("country", country);
-                client.put("isdcode", isdcode);
-                client.put("std", std);
-                client.put("mobile_no", mobile_no);
-                client.put("smobile_no", smobile_no);
-                client.put("telephoneno", telephoneno);
-                client.put("emailid", emailid);
-                client.put("date", date);
-                client.put("app_userid", app_userid);
-
-                if (!validateInputs(fname, mname, lname, gfname,
-                        gmname, glname, dob, birthplace, gender, nationality, id,
-                        address_i, address_ii, city, post_office, areapin, dist, state, country,
-                        isdcode, std, mobile_no, smobile_no, telephoneno, emailid,
-                        date, app_userid)) {
-
-                    upload_dp();
-                    add_clientdata_basic();
-                    fdb.collection("DATAKEEPER/" + app_userid + "/" + id).document("basic")
-                            .set(client)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "DocumentSnapshot successfully written!");
-                                    Toast.makeText(addclient_activity.this, "Client Added To Database...", Toast.LENGTH_LONG).show();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Error writing document", e);
-                                    Toast.makeText(addclient_activity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            });
+                        client.put("fname", fname);
+                        client.put("mname", mname);
+                        client.put("lname", lname);
+                        client.put("gfname", gfname);
+                        client.put("gmname", gmname);
+                        client.put("glname", glname);
+                        client.put("dob", dob);
+                        client.put("gender", gender);
+                        client.put("birthplace", birthplace);
+                        client.put("nationality", nationality);
+                        client.put("address_i", address_i);
+                        client.put("address_ii", address_ii);
+                        client.put("city", city);
+                        client.put("post_office", post_office);
+                        client.put("areapin", areapin);
+                        client.put("dist", dist);
+                        client.put("state", state);
+                        client.put("country", country);
+                        client.put("isdcode", isdcode);
+                        client.put("std", std);
+                        client.put("mobile_no", mobile_no);
+                        client.put("smobile_no", smobile_no);
+                        client.put("telephoneno", telephoneno);
+                        client.put("emailid", emailid);
+                        client.put("date", date);
+                        client.put("app_userid", app_userid);
+//                        client.put("");
+//                        add_clientdata_basic();
+                        String collection = app_userid + "/" + "DATAKEEPER";
+                        fdb.collection(collection + "/" + "client_basic_data").document(id + " ")
+                                .set(client)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "DocumentSnapshot successfully written!");
+//                                    Toast.makeText(addclient_activity.this, "Client Added To Database...", Toast.LENGTH_LONG).show();
+                                        new StyleableToast
+                                                .Builder(addclient_activity.this)
+                                                .text("Client Added To DataBase Successfully..!!")
+                                                .textColor(Color.WHITE)
+                                                .backgroundColor(Color.GREEN)
+                                                .show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error writing document", e);
+//                                    Toast.makeText(addclient_activity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                        new StyleableToast
+                                                .Builder(addclient_activity.this)
+                                                .text("Error writing document..!!")
+                                                .textColor(Color.WHITE)
+                                                .backgroundColor(Color.RED)
+                                                .show();
+                                    }
+                                });
+                    } else {
+                        Toast.makeText(addclient_activity.this, "Something went wrong...!!!", Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(addclient_activity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
                                 }
@@ -359,54 +416,56 @@ public class addclient_activity extends Activity implements View.OnClickListener
         date = com.google.firebase.Timestamp.now().toDate().toString();
     }
 
-    private void add_clientdata_basic() {
-        Map<String, Object> client = new HashMap<>();
-        client.put("id", id);
-//                client.put("img",);
-        client.put("fname", fname);
-        client.put("mname", mname);
-        client.put("lname", lname);
-        client.put("gfname", gfname);
-        client.put("gmname", gmname);
-        client.put("glname", glname);
-        client.put("dob", dob);
-        client.put("gender", gender);
-        client.put("birthplace", birthplace);
-        client.put("nationality", nationality);
-        client.put("address_i", address_i);
-        client.put("address_ii", address_ii);
-        client.put("city", city);
-        client.put("post_office", post_office);
-        client.put("areapin", areapin);
-        client.put("dist", dist);
-        client.put("state", state);
-        client.put("country", country);
-        client.put("isdcode", isdcode);
-        client.put("std", std);
-        client.put("mobile_no", mobile_no);
-        client.put("smobile_no", smobile_no);
-        client.put("telephoneno", telephoneno);
-        client.put("emailid", emailid);
-        client.put("date", date);
-        client.put("app_userid", app_userid);
-
-        fdb.collection("DATAKEEPER/" + app_userid + "/" + id).document("basic")
-                .set(client)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully written!");
-                        Toast.makeText(addclient_activity.this, "Client Added To Database...", Toast.LENGTH_LONG).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error writing document", e);
-                        Toast.makeText(addclient_activity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-    }
+//    private void add_clientdata_basic() {
+//        Map<String, Object> client = new HashMap<>();
+//        client.put("id", id);
+////                client.put("img",);
+//        client.put("fname", fname);
+//        client.put("mname", mname);
+//        client.put("lname", lname);
+//        client.put("gfname", gfname);
+//        client.put("gmname", gmname);
+//        client.put("glname", glname);
+//        client.put("dob", dob);
+//        client.put("gender", gender);
+//        client.put("birthplace", birthplace);
+//        client.put("nationality", nationality);
+//        client.put("address_i", address_i);
+//        client.put("address_ii", address_ii);
+//        client.put("city", city);
+//        client.put("post_office", post_office);
+//        client.put("areapin", areapin);
+//        client.put("dist", dist);
+//        client.put("state", state);
+//        client.put("country", country);
+//        client.put("isdcode", isdcode);
+//        client.put("std", std);
+//        client.put("mobile_no", mobile_no);
+//        client.put("smobile_no", smobile_no);
+//        client.put("telephoneno", telephoneno);
+//        client.put("emailid", emailid);
+//        client.put("date", date);
+//        client.put("app_userid", app_userid);
+//        client.put("dp_link", dp_link);
+//
+//        fdb.collection(app_userid + "/" + "DATAKEEPER/" + "client_basic_data").document(id + " ")
+////        fdb.collection(app_userid + "/" + id).document("basic")
+//                .set(client)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Log.d(TAG, "DocumentSnapshot successfully written!");
+//                        Toast.makeText(addclient_activity.this, "Client Added To Database...", Toast.LENGTH_LONG).show();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w(TAG, "Error writing document", e);
+//                        Toast.makeText(addclient_activity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//    }
 
     private boolean validateInputs(String id, String fname, String mname, String lname, String gfname, String gmname, String glname, String dob, String gender, String birthplace, String nationality, String address_i, String
             address_ii, String city, String post_office, String areapin, String dist, String state, String country, String isdcode, String std, String mobile_no, String smobile_no, String telephoneno, String
@@ -467,44 +526,57 @@ public class addclient_activity extends Activity implements View.OnClickListener
     }
 
     public void upload_dp() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Uploading...");
-        progressDialog.show();
-        // Get the data from an ImageView as bytes
-        photo.setDrawingCacheEnabled(true);
-        photo.buildDrawingCache();
-        Bitmap bitmap = ((BitmapDrawable) photo.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
-        StorageReference mountainsRef = mStorageRef.child("datakeeper/" + app_userid + "/" + id + "/dp.jpg");
-        UploadTask uploadTask = mountainsRef.putBytes(data);
-        uploadTask
-                .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-                progressDialog.dismiss();
-                Toast.makeText(addclient_activity.this, "Failed " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+        if (photo != null) {
+            try {
+                final ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setTitle("Uploading...");
+                progressDialog.show();
+                // Get the data from an ImageView as bytes
+                photo.setDrawingCacheEnabled(true);
+                photo.buildDrawingCache();
+                Bitmap bitmap = ((BitmapDrawable) photo.getDrawable()).getBitmap();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] data = baos.toByteArray();
+                String collection = app_userid + "/" + "DATAKEEPER";
+                StorageReference mountainsRef = mStorageRef.child(collection + "client_basic_data" + "/" + "dp.jpg");
+//            StorageReference mountainsRef = mStorageRef.child(app_userid + "/" + id + "/dp.jpg");
+//        StorageReference mountainsRef = mStorageRef.child("datakeeper"+ "/" + app_userid + "/" + id + "/" +"dp.jpg");
+                UploadTask uploadTask = mountainsRef.putBytes(data);
+                uploadTask
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle unsuccessful uploads
+                                progressDialog.dismiss();
+                                Toast.makeText(addclient_activity.this, "Failed " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                                // ...
+                                dp_store_link = String.valueOf(mStorageRef.getDownloadUrl());
+                                progressDialog.dismiss();
+                                Toast.makeText(addclient_activity.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
+                                        .getTotalByteCount());
+                                progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                            }
+                        });
+            } catch (Exception e) {
+                Toast.makeText(addclient_activity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
-        })
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                // ...
-                progressDialog.dismiss();
-                Toast.makeText(addclient_activity.this, "Uploaded", Toast.LENGTH_SHORT).show();
-            }
-                })
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
-                                .getTotalByteCount());
-                        progressDialog.setMessage("Uploaded " + (int) progress + "%");
-                    }
-                });
+        } else {
+            String e = "no photo added";
+            Toast.makeText(addclient_activity.this, e, Toast.LENGTH_LONG).show();
+        }
     }
 
     private void setUpMenu() {
@@ -525,8 +597,8 @@ public class addclient_activity extends Activity implements View.OnClickListener
         Home = new ResideMenuItem(this, R.drawable.round_home_24, "Home");
         Add_Client = new ResideMenuItem(this, R.drawable.round_person_add_24, "Add Client Details");
         Search_Client = new ResideMenuItem(this, R.drawable.baseline_search_24, "Search Client Details");
-        Edit_Client = new ResideMenuItem(this, R.drawable.round_edit_24, "Edit Client Details");
-        Delete_Client = new ResideMenuItem(this, R.drawable.round_delete_sweep_24, "Delete Client");
+//        Edit_Client = new ResideMenuItem(this, R.drawable.round_edit_24, "Edit Client Details");
+//        Delete_Client = new ResideMenuItem(this, R.drawable.round_delete_sweep_24, "Delete Client");
         Setting = new ResideMenuItem(this, R.drawable.round_settings_24, "Settings");
         Share = new ResideMenuItem(this, R.drawable.round_share_24, "Share");
         About_us = new ResideMenuItem(this, R.drawable.round_info_24, "About Us");
@@ -534,10 +606,10 @@ public class addclient_activity extends Activity implements View.OnClickListener
 
     public void Menuitemlisten(){
         Home.setOnClickListener(this);
-//        Add_Client.setOnClickListener(this);
+        Add_Client.setOnClickListener(this);
         Search_Client.setOnClickListener(this);
-        Edit_Client.setOnClickListener(this);
-        Delete_Client.setOnClickListener(this);
+//        Edit_Client.setOnClickListener(this);
+//        Delete_Client.setOnClickListener(this);
         Setting.setOnClickListener(this);
         Share.setOnClickListener(this);
         About_us.setOnClickListener(this);
@@ -551,7 +623,7 @@ public class addclient_activity extends Activity implements View.OnClickListener
 //            startActivity(new Intent(addclient_activity.this, addclient_activity.class));
 //        }
         else if (view==Search_Client){
-            startActivity(new Intent(addclient_activity.this, MainActivity.class));
+            startActivity(new Intent(addclient_activity.this, show_data.class));
         }
         else if (view==Edit_Client){
             startActivity(new Intent(addclient_activity.this, MainActivity.class));
@@ -576,8 +648,8 @@ public class addclient_activity extends Activity implements View.OnClickListener
         resideMenu.addMenuItem(Home, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(Add_Client, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(Search_Client, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(Edit_Client, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(Delete_Client, ResideMenu.DIRECTION_LEFT);
+//        resideMenu.addMenuItem(Edit_Client, ResideMenu.DIRECTION_LEFT);
+//        resideMenu.addMenuItem(Delete_Client, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(Setting, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(Share, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(About_us, ResideMenu.DIRECTION_LEFT);
@@ -604,5 +676,4 @@ public class addclient_activity extends Activity implements View.OnClickListener
             Toast.makeText(mcontext, "Menu Close",Toast.LENGTH_LONG).show();
         }
     };
-
 }

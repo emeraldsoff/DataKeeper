@@ -17,4 +17,39 @@
     <style name="AppTheme2" parent="Base.Widget.AppCompat.Light.PopupMenu">
 
     </style>
+
+    <style name="styleabletoast_1">
+        <item name="textBold">true</item>
+        <item name="textColor">#000</item>
+        <item name="textSize">14sp</item>
+        <item name="colorBackground">#fff</item>
+        <item name="solidBackground">true</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="strokeColor">@android:color/holo_red_dark</item>
+        <item name="iconStart">@android:drawable/star_on</item>
+        <item name="iconEnd">@android:drawable/star_on</item>
+        <item name="length">LONG</item>
+        <item name="gravity">top</item>
+
+        <!--for custom font
+        <item name="font">@font/retrofont</item>-->
+
+    </style>
+
+    <style name="styleabletoast_2">
+        <item name="textBold">true</item>
+        <item name="textColor">#000</item>
+        <item name="textSize">14sp</item>
+        <item name="colorBackground">#fff</item>
+        <item name="solidBackground">true</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="strokeColor">@android:color/holo_red_dark</item>
+        <item name="iconStart">@android:drawable/star_on</item>
+        <item name="iconEnd">@android:drawable/star_on</item>
+        <item name="length">SHORT</item>
+        <item name="gravity">center</item>
+        <item name="radius">5dp</item>
+
+    </style>
+
 </resources>

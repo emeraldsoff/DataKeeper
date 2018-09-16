@@ -7,19 +7,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.text.Layout;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 
@@ -47,6 +42,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         FirebaseUser user = firebaseAuth.getCurrentUser();
                         if (user != null) {
 //                            title.setText(mAuth.getUid());
+                            String uid = mAuth.getUid();
+                            Toast.makeText(MainActivity.this, "Welcome " + uid, Toast.LENGTH_LONG).show();
                         }
                         else{
                             startActivity(new Intent(MainActivity.this, loginactivity.class));
@@ -154,8 +151,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Home     = new ResideMenuItem(this, R.drawable.round_home_24, "Home");
         Add_Client  = new ResideMenuItem(this, R.drawable.round_person_add_24, "Add Client Details" );
         Search_Client = new ResideMenuItem(this, R.drawable.baseline_search_24, "Search Client Details");
-        Edit_Client = new ResideMenuItem(this, R.drawable.round_edit_24, "Edit Client Details");
-        Delete_Client = new ResideMenuItem(this, R.drawable.round_delete_sweep_24, "Delete Client");
+//        Edit_Client = new ResideMenuItem(this, R.drawable.round_edit_24, "Edit Client Details");
+//        Delete_Client = new ResideMenuItem(this, R.drawable.round_delete_sweep_24, "Delete Client");
         Setting = new ResideMenuItem(this, R.drawable.round_settings_24, "Settings");
         Share = new ResideMenuItem(this, R.drawable.round_share_24, "Share");
         About_us = new ResideMenuItem(this, R.drawable.round_info_24, "About Us");
@@ -165,8 +162,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Home.setOnClickListener(this);
         Add_Client.setOnClickListener(this);
         Search_Client.setOnClickListener(this);
-        Edit_Client.setOnClickListener(this);
-        Delete_Client.setOnClickListener(this);
+//        Edit_Client.setOnClickListener(this);
+//        Delete_Client.setOnClickListener(this);
         Setting.setOnClickListener(this);
         Share.setOnClickListener(this);
         About_us.setOnClickListener(this);
@@ -180,14 +177,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
             startActivity(new Intent(MainActivity.this, addclient_activity.class));
         }
         else if (view==Search_Client){
-            startActivity(new Intent(MainActivity.this, addclient_activity.class));
+            startActivity(new Intent(MainActivity.this, show_data.class));
         }
-        else if (view==Edit_Client){
-            startActivity(new Intent(MainActivity.this, addclient_activity.class));
-        }
-        else if (view==Delete_Client){
-            startActivity(new Intent(MainActivity.this, addclient_activity.class));
-        }
+//        else if (view==Edit_Client){
+//            startActivity(new Intent(MainActivity.this, addclient_activity.class));
+//        }
+//        else if (view==Delete_Client){
+//            startActivity(new Intent(MainActivity.this, addclient_activity.class));
+//        }
         else if (view==Setting){
             startActivity(new Intent(MainActivity.this, addclient_activity.class));
         }
@@ -204,8 +201,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         resideMenu.addMenuItem(Home,    ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(Add_Client, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(Search_Client,ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(Edit_Client,ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(Delete_Client, ResideMenu.DIRECTION_LEFT);
+//        resideMenu.addMenuItem(Edit_Client,ResideMenu.DIRECTION_LEFT);
+//        resideMenu.addMenuItem(Delete_Client, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(Setting, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(Share, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(About_us, ResideMenu.DIRECTION_LEFT);
