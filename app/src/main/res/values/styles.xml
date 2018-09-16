@@ -10,13 +10,13 @@
     <style name="fullscreen1" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
     </style>
 
-    <style name="AppTheme1" parent="Base.Widget.Design.AppBarLayout">
+    <!--<style name="AppTheme1" parent="Base.Widget.Design.AppBarLayout">-->
 
-    </style>
+    <!--</style>-->
 
-    <style name="AppTheme2" parent="Base.Widget.AppCompat.Light.PopupMenu">
+    <!--<style name="AppTheme2" parent="Base.Widget.AppCompat.Light.PopupMenu">-->
 
-    </style>
+    <!--</style>-->
 
     <style name="styleabletoast_1">
         <item name="textBold">true</item>
